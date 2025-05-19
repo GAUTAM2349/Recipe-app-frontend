@@ -1,6 +1,18 @@
-return chat.senderId == user.id && (<OutgoingMessage key={idx} chat={chat}/>)
-When chat.senderId !== user.id, the expression evaluates to false, so false gets returned inside the array.
 
-* optional chaining save lot from ugly errors
 
-* useContext data was lost bcz it was frontend data and not stored in storage
+* not giving dependency array in useEffect made infinite call
+
+* You're still getting infinite API calls because you're using the state variables as dependencies in your useEffect hooks like this:
+
+* replace avoids adding the bad URL to the browser history (i.e., user won’t hit the back button and return to the invalid path).
+
+* The issue is happening because your entire RecipeCard has an onClick event on the parent <div> that navigates to the recipe page, 
+including when you click on the "love" span inside it.
+✅ Fix: Prevent event bubbling using event.stopPropagation()
+
+Wrap the onClick of "love" with e => { e.stopPropagation(); ... } so it doesn't trigger the parent click.
+
+
+* two request are going for following from profile page
+
+* i forget to write await so error is not handled

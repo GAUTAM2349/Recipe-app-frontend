@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       try {
         const response = await api.get("/user/login-status");
+        console.log("\n\n auth response  is ", response)
         setIsAuthenticated(true);
         const user = response.data.user;
         setUser(user);
@@ -26,6 +27,8 @@ export const AuthProvider = ({ children }) => {
     };
     checkAuth();
   }, []);
+
+  
 
   return (
     <AuthContext.Provider

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import api from "../../../config/axiosConfig";
+import api from "../../config/axiosConfig";
 import { useState } from "react";
 
 const Signup = () => {

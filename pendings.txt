@@ -4,3 +4,23 @@
 * smooth scroll
 * self user selection should not be present , should be included manually in backend
 * page reload group name disappearing
+
+????
+
+* follow,usecontext logic, 
+* one following list should be present so that, if user already follws then it should reflect
+
+* What is a Preflight Request?
+
+When a web application (e.g. running on localhost:3000) tries to send a non-simple HTTP request to a different origin (e.g. api.myserver.com), the browser first sends a preflight request using the OPTIONS method to the target server before the actual request.
+A preflight request checks:
+
+    Is the requested HTTP method (e.g. POST, PUT, DELETE) allowed?
+
+    Are the custom headers being sent allowed?
+
+    Can this origin access the resource?
+
+* data is not sorted according to time
+
+* followers not showing

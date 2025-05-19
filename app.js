@@ -1,35 +1,43 @@
 import React, { lazy, Suspense, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router-dom";
 
+import { AllDataContext, AllDataProvider } from "./utils/AllDataContext";
+
+
+import Login from "./src/components/Login";
+import Signup from './src/components/Signup';
 import NavBar from "./src/components/Header/NavBar";
-const Login = lazy(() => import("./src/components/auth/Login"));
-import Signup from "./src/components/auth/Signup";
-import Chatpage from "./src/components/chat/Chatpage";
-
-
-import Homepage from "./src/components/Homepage/Homepage";
-import CreateGroup from "./src/components/Group/CreateGroup";
-import { PrivateRoute } from "./utils/PrivateRoute";
+import Recipe from "./src/components/Recipe/Recipe";
 import { AuthProvider } from "./utils/AuthProvider";
-import GroupInfo from "./src/components/chat/GroupInfo";
+import Homepage from "./src/components/Homepage/Homepage";
+import Activity from "./src/components/ActivityFeed/Activity";
+import Profile from "./src/components/Profile/Profile";
+import { ProfileData } from "./utils/ProfileData";
+import CreateRecipe from "./src/components/CreateRecipe/CreateRecipe";
+
+
 
 
 const AppLayout = () => {
+
+  
+  
   return (
     <>
+    <div className="bg-yellow-300 min-h-screen flex flex-col" >
     <AuthProvider>
-    <PrivateRoute>
-    <div className="relative bg-blue-600 hide-scrollbar !h-[100vh]">
-
+    <AllDataProvider>
+    <div className="relative ">
         
-          {/* <NavBar /> */}
+        
+          <NavBar/>
           <Outlet />
         
       </div>
-    </PrivateRoute>
+    </AllDataProvider>
     </AuthProvider>
+    </div>
     </>
   );
 };
@@ -42,23 +50,29 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: <Homepage />, // ← always shows sidebar
-        children: [
-          {
-            path: "chats/:groupId/:ownerId",
-            element: <Chatpage />,
-          },
-          {
-            path: "group-info/:groupId/:ownerId",
-            element: <GroupInfo />,
-          },
-        ],
       },
       {
-        path: "/create-group",
-        element: <CreateGroup />,
+        path : "/recipe/:id",
+        element: <Recipe/>
       },
+      {
+        path : "/feed",
+        element : <Activity/>
+      },
+      {
+        path : "/profile",
+        element : <ProfileData><Profile/></ProfileData>,
+      },
+
+      {
+        path : "/create-recipe",
+        element : <CreateRecipe/>
+      }
+      
     ],
   },
+
+  /* public routes */
   {
     path: "/signup",
     element: <Signup />,
@@ -71,6 +85,10 @@ const appRouter = createBrowserRouter([
       </Suspense>
     ),
   },
+  {
+  path: "*",
+  element: <Navigate to="/" replace />
+}
 ]);
 
 

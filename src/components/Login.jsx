@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../../config/axiosConfig";
+import api from "../../config/axiosConfig";
 
 
-const LoginPage = () => {
+const Login = () => {
   const backgroundImageUrl =
     "https://images.unsplash.com/photo-1525302220185-c387a117886e?auto=format&fit=crop&w=1950&q=80";
 
@@ -23,7 +23,7 @@ const LoginPage = () => {
 
     try {
       console.log("sedning request to server next");
-      const response = await api.post("/user/login", input);
+      const response = await api.post("/auth/login", input);
       console.log("details sent successfully")
       const { message, token } = response.data;
 
@@ -55,6 +55,31 @@ const LoginPage = () => {
     }
   };
 
+  const [x,setX] = useState(25);
+
+  function increment(){
+    console.log("prev value of x : ", x);
+    setX(prev=>prev+1)
+    
+    setTimeout(()=>{
+      console.log("new value of x : ",x);
+    },5000);
+    
+  }
+
+  useEffect(()=>{
+      setTimeout(()=>{
+        setX(0);
+      }, 3000)
+      setTimeout(()=>{
+        setX(10);
+      }, 7000)
+  },[])
+
+  useEffect(()=>{
+    
+},[])
+
   return (
     <>
       <div
@@ -67,6 +92,13 @@ const LoginPage = () => {
             <h2 className="mt-6 text-3xl font-bold text-gray-900">
               Welcome Back!
             </h2>
+
+
+            <h1 className="bold text-red" id="my-number">{x}</h1>
+                    <button className="w-[100px] h-[100px] bg-blue-700" onClick={increment}>INCREMENT</button>
+
+
+
             <p className="mt-2 text-sm text-gray-600">
               Please sign in to your account
             </p>
@@ -145,4 +177,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;
