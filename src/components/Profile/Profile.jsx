@@ -3,19 +3,20 @@ import { AuthContext } from "../../../utils/AuthProvider";
 import { FollowersContext } from '../../../utils/FollowersProvider';
 import { FollowingContext } from '../../../utils/FollowingProvider';
 import { FavoriteContext } from '../../../utils/FavoriteProvider';
-import Followers from "./Followers";
-import Following from "./Following";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
-  const { follwers } = useContext(FollowersContext);
+  const { followers } = useContext(FollowersContext);
+  console.log("\n\nprofile.jsx followers are : ",followers);
   const { following } = useContext(FollowingContext);
   const { favorites } = useContext(FavoriteContext);
+  const navigate = useNavigate();
   console.log(user);
 
   return (
     <section className="pt-16 bg-blueGray-50">
-      <div className="w-full lg:w-4/12 px-4 mx-auto">
+      <div className="w-full mt-[80px] lg:w-4/12 px-4 mx-auto">
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
           <div className="px-6">
             <div className="flex flex-wrap justify-center">
@@ -31,12 +32,19 @@ const Profile = () => {
               </div>
               <div className="w-full px-4 text-center mt-4">
                 <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                  <div className="mr-4 p-3 text-center">
+                  <div onClick={()=>navigate('/followings')} className="mr-4 p-3 text-center cursor-pointer">
                     <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                       {following?.length || "0"}
                     </span>
-                    <span className="text-sm text-blueGray-400">following</span>
+                    <span  className="text-sm text-blueGray-400">following</span>
                   </div>
+                  <div onClick={()=>navigate('/followers')} className="mr-4 p-3 text-center cursor-pointer">
+                    <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                      {followers?.length || "0"}
+                    </span>
+                    <span className="text-sm text-blueGray-400">followers</span>
+                  </div>
+
                   <div className="mr-4 p-3 text-center">
                     <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                       {favorites?.length || "0"}
@@ -83,8 +91,6 @@ const Profile = () => {
                     Show more
                   </a>
                 </div>
-                { follwers && <Followers followers={follwers}/>}
-                { following && <Following following={following}/>}
               </div>
             </div>
           </div>

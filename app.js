@@ -15,13 +15,14 @@ import Activity from "./src/components/ActivityFeed/Activity";
 import Profile from "./src/components/Profile/Profile";
 import { ProfileData } from "./utils/ProfileData";
 import CreateRecipe from "./src/components/CreateRecipe/CreateRecipe";
-
-
+import { PrivateRoute } from "./utils/PrivateRoute";
+import { FollowersProvider } from "./utils/FollowersProvider";
+import FollowersPage from "./src/components/Profile/FollowersPage";
+import FollowingPage from "./src/components/Profile/FollowingPage";
+import { FollowingProvider } from "./utils/FollowingProvider";
 
 
 const AppLayout = () => {
-
-  
   
   return (
     <>
@@ -29,11 +30,8 @@ const AppLayout = () => {
     <AuthProvider>
     <AllDataProvider>
     <div className="relative ">
-        
-        
           <NavBar/>
           <Outlet />
-        
       </div>
     </AllDataProvider>
     </AuthProvider>
@@ -61,9 +59,18 @@ const appRouter = createBrowserRouter([
       },
       {
         path : "/profile",
-        element : <ProfileData><Profile/></ProfileData>,
+        element : <PrivateRoute><ProfileData><Profile/></ProfileData></PrivateRoute>,
+        
       },
-
+      {
+        path : "/followers",
+        element : <FollowersProvider><FollowersPage/></FollowersProvider>
+      },
+      
+      {
+        path : "/followings",
+        element : <FollowingProvider><FollowingPage/></FollowingProvider>
+      },
       {
         path : "/create-recipe",
         element : <CreateRecipe/>

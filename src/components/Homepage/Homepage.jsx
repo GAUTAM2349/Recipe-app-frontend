@@ -165,9 +165,9 @@ const Homepage = () => {
     fetchRecipes();
   }, [searchParams]);
 
-  const updateParam = (key, value) => {
+  const updateParam = (key, value) => {   
     const params = new URLSearchParams(searchParams);
-    value ? params.set(key, value) : params.delete(key);
+    value ? params.set(key, value) : params.delete(key); /* when filter is removed , then existing filter should be removed */
     params.set("page", "1"); // reset page on filter change
     setSearchParams(params);
   };
@@ -183,7 +183,7 @@ const Homepage = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 mt-[80px]">
       {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6">
         <select value={category} onChange={e => updateParam("category", e.target.value)} className="border p-2 rounded bg-yellow-200">
@@ -214,7 +214,7 @@ const Homepage = () => {
       </div>
 
       {/* Pagination Controls */}
-      <div className="flex justify-center gap-4 mt-6">
+      <div className="flex justify-center  gap-4 mt-6 cursor-pointer">
         <button onClick={() => handlePageChange(-1)} disabled={page <= 1} className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50">Previous</button>
         <span className="px-4 py-2">Page {page} of {totalPages}</span>
         <button onClick={() => handlePageChange(1)} disabled={page >= totalPages} className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50">Next</button>

@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [loggedinUser, setLoggedinUser] = useState(null);
   const [user, setUser] = useState(null);
 
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
       } catch (err) {
         setIsAuthenticated(false);
       } finally {
-        setIsLoadingAuth(false);
+        setIsLoading(false);
       }
     };
     checkAuth();
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, isLoadingAuth, loggedinUser, user }}
+      value={{ isAuthenticated, isLoading, loggedinUser, user }}
     >
       {children}
     </AuthContext.Provider>

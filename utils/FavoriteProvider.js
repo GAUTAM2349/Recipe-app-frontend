@@ -20,9 +20,9 @@ export const FavoriteProvider = ({children}) => {
             try{
             const response = await api.get('/favorite');
             setFavorites(response.data);
+            console.log("\n\nfavoriteprovider.js  "+favorites);
             }catch(error){
                 console.log(error);
-                return navigate('/login');
             }
             
         }

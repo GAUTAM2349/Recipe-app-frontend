@@ -16,3 +16,8 @@ Wrap the onClick of "love" with e => { e.stopPropagation(); ... } so it doesn't 
 * two request are going for following from profile page
 
 * i forget to write await so error is not handled
+
+* 📘 React 18 Strict Mode: Why useEffect Runs Twice in Development
+
+* adding loading state in contexts, and using it makes greate dpendency and prevent unexpected behavior
+ 

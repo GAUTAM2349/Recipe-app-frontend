@@ -1,0 +1,2 @@
+* page reload does not cause result change
+* when filter applied, page is automatically set to 1

@@ -4,16 +4,24 @@ import api from "../config/axiosConfig";
 export const FollowersContext = createContext();
 
 export const FollowersProvider = ({ children }) => {
-  const [followers, setfollowers] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchFollowers = async () => {
+      setLoading(true);
+      setError(null);
+
       try {
-        const response = await api.get("/follow/following");
-        setfollowers(response.data);
-        console.log("\nfollowerProvider.js  followers are : ", followers);
-      } catch (error) {
-        console.log(error);
+        const response = await api.get("/follow/followers");
+        setFollowers(response.data);
+        console.log("\n✅ followerProvider.js → followers fetched:", response.data);
+      } catch (err) {
+        console.error("❌ Error fetching followers:", err);
+        setError(err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -21,7 +29,7 @@ export const FollowersProvider = ({ children }) => {
   }, []);
 
   return (
-    <FollowersContext.Provider value={{ followers }}>
+    <FollowersContext.Provider value={{ followers, loading, error }}>
       {children}
     </FollowersContext.Provider>
   );

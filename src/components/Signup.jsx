@@ -18,8 +18,8 @@ const Signup = () => {
     };
 
     try {
-      const response = await api.post("/user/signup", input);
-      const loginResponse = await api.post("/user/login", {
+      const response = await api.post("/auth/register", input);
+      const loginResponse = await api.post("/auth/login", {
         email: input.email,
         password: input.password,
       });

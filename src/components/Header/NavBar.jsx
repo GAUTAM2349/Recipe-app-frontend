@@ -3,20 +3,22 @@ import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-    
-    
   return (
     <header>
-      <nav className="bg-gray-700 sticky top-0 z-50 w-full">
-
-        <div className="container mx-auto py-4 flex justify-between items-center">
-          <h1 onClick={()=>navigate('/')} className="text-2xl font-bold text-gray-50">kook</h1>
+      <nav className="bg-gray-700 fixed top-0 z-50 w-full">
+        <div className="container mx-auto h-[80px] flex justify-between items-center ">
+          <h1
+            onClick={() => navigate("/")}
+            className="text-2xl font-bold text-gray-50 cursor-pointer"
+          >
+            kook
+          </h1>
 
           <div className="flex space-x-10">
             {/* Topics */}
-            <div className="flex items-center space-x-2">
+            <div onClick={() => navigate("/create-recipe")} className="flex items-center space-x-2 cursor-pointer">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -33,11 +35,16 @@ const NavBar = () => {
                   />
                 </svg>
               </span>
-              <span onClick={()=> navigate('/create-recipe')} className="text-gray-50">Add Recipe</span>
+              <span
+                
+                className="text-gray-50"
+              >
+                Add Recipe
+              </span>
             </div>
 
             {/* Blog */}
-            <div className="flex items-center space-x-2">
+            <div onClick={() => navigate("/feed")} className="flex items-center space-x-2 cursor-pointer">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -54,11 +61,13 @@ const NavBar = () => {
                   />
                 </svg>
               </span>
-              <span onClick={ ()=> navigate('/feed')} className="text-gray-50">activities</span>
+              <span  className="text-gray-50">
+                activities
+              </span>
             </div>
 
             {/* Certificate Training */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 cursor-pointer">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -80,10 +89,14 @@ const NavBar = () => {
           </div>
 
           {/* Search Box (Visible on lg and above) */}
-          <SearchBar/>
-          <div onClick={()=>navigate('/profile')}>Profile</div>
+          <SearchBar />
+          <div
+            onClick={() => navigate("/profile")}
+            className="text-white text-2xl cursor-pointer"
+          >
+            👤
+          </div>
         </div>
-        
       </nav>
     </header>
   );

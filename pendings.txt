@@ -24,3 +24,5 @@ A preflight request checks:
 * data is not sorted according to time
 
 * followers not showing
+
+* on other pages, search bar should not be visible
