@@ -20,6 +20,7 @@ import { FollowersProvider } from "./utils/FollowersProvider";
 import FollowersPage from "./src/components/Profile/FollowersPage";
 import FollowingPage from "./src/components/Profile/FollowingPage";
 import { FollowingProvider } from "./utils/FollowingProvider";
+import EditProfile from "./src/components/Profile/EditProfile";
 
 
 const AppLayout = () => {
@@ -60,6 +61,11 @@ const appRouter = createBrowserRouter([
       {
         path : "/profile",
         element : <PrivateRoute><ProfileData><Profile/></ProfileData></PrivateRoute>,
+        
+      },
+      {
+        path : "/edit-profile",
+        element : <PrivateRoute><ProfileData><EditProfile/></ProfileData></PrivateRoute>,
         
       },
       {

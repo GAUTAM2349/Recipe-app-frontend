@@ -4,6 +4,7 @@ import { FollowersContext } from '../../../utils/FollowersProvider';
 import { FollowingContext } from '../../../utils/FollowingProvider';
 import { FavoriteContext } from '../../../utils/FavoriteProvider';
 import { useNavigate } from "react-router-dom";
+import MyRecipeList from "./MyRecipeList";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
@@ -51,12 +52,7 @@ const Profile = () => {
                     </span>
                     <span className="text-sm text-blueGray-400">favorites</span>
                   </div>
-                  <div className="lg:mr-4 p-3 text-center">
-                    <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                      89
-                    </span>
-                    <span className="text-sm text-blueGray-400">reviews</span>
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -69,23 +65,14 @@ const Profile = () => {
                 <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
                 {user?.email || "loading..."}
               </div>
-              <div className="mb-2 text-blueGray-600 mt-10">
-                <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                Solution Manager - Creative Tim Officer
-              </div>
-              <div className="mb-2 text-blueGray-600">
-                <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                University of Computer Science
-              </div>
+              
             </div>
 
             <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
               <div className="flex flex-wrap justify-center">
                 <div className="w-full lg:w-9/12 px-4">
                   <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                    A chef of remarkable creativity, Arjun—the name behind the Mumbai-born, San Francisco-based culinary artist—crafts, 
-                    refines, and shares every dish himself, blending bold flavors with comforting textures.
-                     His food reflects a global journey, offering vibrant, soulful plates with an elegant, modern touch.
+                    {user.bio}
                   </p>
                   <a href="#!" className="font-normal text-pink-500">
                     Show more
@@ -93,6 +80,8 @@ const Profile = () => {
                 </div>
               </div>
             </div>
+            {/* USER'S POSTS */}
+            <MyRecipeList/>
           </div>
         </div>
       </div>
