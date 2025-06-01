@@ -21,6 +21,10 @@ import FollowersPage from "./src/components/Profile/FollowersPage";
 import FollowingPage from "./src/components/Profile/FollowingPage";
 import { FollowingProvider } from "./utils/FollowingProvider";
 import EditProfile from "./src/components/Profile/EditProfile";
+import LearningReact from "./src/components/Temp/useRef";
+import { FavoriteProvider } from "./utils/FavoriteProvider";
+import FavoritesPage from "./src/components/Profile/FavoritesPage";
+import AdminDashboard from "./src/components/Admin/AdminDashboard";
 
 
 const AppLayout = () => {
@@ -70,16 +74,26 @@ const appRouter = createBrowserRouter([
       },
       {
         path : "/followers",
-        element : <FollowersProvider><FollowersPage/></FollowersProvider>
+        element : <PrivateRoute><FollowersProvider><FollowersPage/></FollowersProvider></PrivateRoute>
       },
       
       {
         path : "/followings",
-        element : <FollowingProvider><FollowingPage/></FollowingProvider>
+        element : <PrivateRoute><FollowingProvider><FollowingPage/></FollowingProvider></PrivateRoute>
       },
+      {
+        path : "/favorites",
+        element : <PrivateRoute><FavoriteProvider><FavoritesPage/></FavoriteProvider></PrivateRoute>
+      }
+      ,
       {
         path : "/create-recipe",
         element : <CreateRecipe/>
+      },
+
+      {
+        path : "/admin",
+        element : <AdminDashboard/>
       }
       
     ],

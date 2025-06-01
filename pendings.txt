@@ -26,3 +26,8 @@ A preflight request checks:
 * followers not showing
 
 * on other pages, search bar should not be visible
+* recipe update logic
+* create collection option not available
+* image for recipe is not uploading properly
+
+* pagination in activity feed, admin dashboard

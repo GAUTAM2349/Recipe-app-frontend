@@ -9,7 +9,7 @@ const Favorite = ({ recipeId }) => {
   const { favorites } = useContext(FavoriteContext);
   const navigate = useNavigate();
 
-  // Check if the recipe is already in favorites
+  
   useEffect(() => {
     const found = favorites?.some(fav => fav.id === recipeId);
     setIsFavorite(found);
@@ -21,12 +21,12 @@ const Favorite = ({ recipeId }) => {
 
     try {
       if (!isFavorite) {
-        // Add to favorites
+        
         await api.post('/favorite', { recipeId });
         setFavoriteColor("red");
         setIsFavorite(true);
       } else {
-        // Remove from favorites (dummy URL, replace with actual)
+        
         await api.delete(`/favorite/${recipeId}`);
         setFavoriteColor("black");
         setIsFavorite(false);

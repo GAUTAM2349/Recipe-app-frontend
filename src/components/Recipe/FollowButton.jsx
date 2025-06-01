@@ -12,7 +12,7 @@ const FollowButton = ({ id }) => {
 
   const isSelf = user?.id === id;
 
-  // While data is still loading, don't try to determine isFollowing
+  
   if (loading) {
     console.log("returning early");
     return (
@@ -35,7 +35,7 @@ console.log("\n\nloading is : ",loading, "is slef is ",isSelf, "\n user id is ",
 
   try {
     const { data } = await api.post(`/follow/${id}`);
-    // Assume API returns the followed user's full object in `data`
+    
     setFollowing((prev) => [...prev, data?.followedUser]);
   } catch (error) {
     console.error("Error following user:", error);

@@ -112,15 +112,10 @@ const Login = () => {
               
             </span>
             <span className="w-11 h-11 flex items-center justify-center rounded-full bg-blue-500 text-white text-lg font-bold cursor-pointer hover:shadow-lg transition ease-in duration-300">
-              {/* Add your SVG icon here */}
+              {/*  */}
             </span>
           </div>
 
-          {/* <div className="flex items-center justify-center space-x-2">
-            <span className="h-px w-16 bg-gray-300"></span>
-             <span className="text-gray-500 font-normal">OR</span> 
-            <span className="h-px w-16 bg-gray-300"></span>
-          </div> */}
 
           <form onSubmit={handleFormSubmit} className="mt-8 space-y-6">
             <div className="relative">

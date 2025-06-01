@@ -29,7 +29,7 @@ export const AllDataProvider = ({ children }) => {
 
   return (
     <AllDataContext.Provider
-      value={{ allRecipe, setRecipeFilter , isLoadingData }}
+      value={{ allRecipe, setRecipeFilter ,recipeFilter, isLoadingData }}
     >
       {children}
     </AllDataContext.Provider>

@@ -54,6 +54,7 @@ const Activity = () => {
             </div>
           );
         })}
+        { feeds?.length == 0 && <div> no new activities </div>}
       </div>
     </div>
   );

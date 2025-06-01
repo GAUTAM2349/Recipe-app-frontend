@@ -1,22 +1,29 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Favorite from "./Favorite";
-import { FavoriteContext, FavoriteProvider } from "../../../utils/FavoriteProvider";
+import {
+  FavoriteContext,
+  FavoriteProvider,
+} from "../../../utils/FavoriteProvider";
+import approvePost from "../../../utils/Admin/approvePost";
+import banPost from "../../../utils/Admin/banPost";
+import blockUser from "../../../utils/Admin/blockUser";
 
-const RecipeCard = ({ recipe }) => {
+const RecipeCard = ({ recipe, fetchRecipeAgain }) => {
   const { title, cook_time: cookTime, difficulty, ingredients } = recipe;
   const navigate = useNavigate();
-  console.log("recipeCard.jsx",title, cookTime, difficulty, ingredients)
-  console.log("recipeCard.jsx",recipe)
+  const location = useLocation();
+  const isAdminPage = location.pathname === "/admin";
+  const adminDivRef = useRef();
 
   return (
-    <div
-      onClick={() => navigate(`/recipe/${recipe.id}`)}
-      className="flex flex-col shadow-2xl cursor-pointer justify-center items-center bg-yellow-100 min-w-[400px] w-[90%]  md:w-[45%] lg:w-[32%] xl:w-[24%] sm:w-[90%] rounded-lg"
+    <div ref={adminDivRef}
+      className="flex relative flex-col shadow-2xl ml-5 cursor-pointer justify-center items-center bg-yellow-100  w-[80vw]  md:max-w-[45vw] lg:max-w-[33vw] xl:max-w-[22vw] sm:max-w-[45vw] rounded-lg"
     >
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden w-[100%] h-[98%]">
+      <div onClick={() => navigate(`/recipe/${recipe.id}`)}
+       className="bg-white rounded-lg shadow-lg overflow-hidden w-[100%] h-[98%]">
         <img
-          src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606"
+          src={recipe.image_url}
           alt="Mountain"
           className="w-full h-64 object-cover"
         />
@@ -37,14 +44,33 @@ const RecipeCard = ({ recipe }) => {
               </span>
             </div>
             <div>
-              <FavoriteProvider>
-              <Favorite recipeId={recipe.id}/>
-              </FavoriteProvider>
+              {!isAdminPage && (
+                <FavoriteProvider>
+                  <Favorite recipeId={recipe.id} />
+                </FavoriteProvider>
+              )}
               <span className="text-gray-600">2 hours ago</span>
             </div>
           </div>
         </div>
       </div>
+
+      {isAdminPage && (
+        <div  className="flex justify-between py-1 w-[100%] px-4 items-center">
+
+          <div className="flex  items-center">
+
+            <button onClick={()=>approvePost(recipe.id, adminDivRef.current)} className="text-white text-3xl rounded-2xl">✅</button>
+
+            <button onClick={()=>banPost(recipe.id,adminDivRef.current)} className=" text-white text-2xl rounded-3xl">✂️</button>
+            
+          </div>
+
+          <button onClick={()=>{blockUser(recipe.user_id, adminDivRef.current, fetchRecipeAgain);}} className="bg-red-600 p-2.5 text-white rounded-2xl">
+            block user
+          </button>
+        </div>
+      )}
     </div>
   );
 };

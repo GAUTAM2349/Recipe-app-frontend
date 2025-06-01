@@ -1,118 +1,16 @@
-// import { useState } from "react";
-// import api from "../../../config/axiosConfig"; // adjust path if needed
-// import { useNavigate } from "react-router-dom";
-
-// const CreateRecipe = () => {
-//   const navigate = useNavigate();
-
-//   const [formData, setFormData] = useState({
-//     title: "",
-//     ingredients: "",
-//     instructions: "",
-//     cook_time: "",
-//     servings: "",
-//     category: "",
-//     dietary_tags: "",
-//     difficulty: "",
-//     image_url: "",
-//   });
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-
-//     setFormData((prev) => ({
-//       ...prev,
-//       [name]: value,
-//     }));
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     // Split array fields
-//     const payload = {
-//       ...formData,
-//       ingredients: formData.ingredients
-//         .split(",")
-//         .map((i) => i.trim())
-//         .filter(Boolean),
-//       dietary_tags: formData.dietary_tags
-//         .split(",")
-//         .map((tag) => tag.trim())
-//         .filter(Boolean),
-//       cook_time: parseInt(formData.cook_time),
-//       servings: parseInt(formData.servings),
-//     };
-
-//     try {
-//       await api.post("/recipe", payload); // Replace with actual endpoint
-//       alert("Recipe created!");
-//       navigate("/");
-//     } catch (err) {
-//       console.error(err);
-//       alert("Failed to create recipe.");
-//     }
-//   };
-
-//   return (
-//     <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded mt-8">
-//       <h2 className="text-2xl font-bold mb-4">Create a New Recipe</h2>
-
-//       <form onSubmit={handleSubmit} className="space-y-4">
-//         {[
-//           { label: "Title", name: "title" },
-//           { label: "Ingredients (comma-separated)", name: "ingredients" },
-//           { label: "Instructions", name: "instructions", textarea: true },
-//           { label: "Cook Time (minutes)", name: "cook_time", type: "number" },
-//           { label: "Servings", name: "servings", type: "number" },
-//           { label: "Category", name: "category" },
-//           { label: "Dietary Tags (comma-separated)", name: "dietary_tags" },
-//           { label: "Difficulty", name: "difficulty" },
-//           { label: "Image URL", name: "image_url" },
-//         ].map((field) => (
-//           <div key={field.name}>
-//             <label className="block mb-1 font-semibold">{field.label}</label>
-//             {field.textarea ? (
-//               <textarea
-//                 name={field.name}
-//                 value={formData[field.name]}
-//                 onChange={handleChange}
-//                 rows={4}
-//                 className="w-full p-2 border rounded"
-//                 required
-//               />
-//             ) : (
-//               <input
-//                 type={field.type || "text"}
-//                 name={field.name}
-//                 value={formData[field.name]}
-//                 onChange={handleChange}
-//                 className="w-full p-2 border rounded"
-//                 required
-//               />
-//             )}
-//           </div>
-//         ))}
-
-//         <button
-//           type="submit"
-//           className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-//         >
-//           Submit Recipe
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default CreateRecipe;
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import api from "../../../config/axiosConfig";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CreateRecipe = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [recipePicFile, setRecipePicFile] = useState(null);
+  const [previewURL, setPreviewURL] = useState(null);
+  const [msg, setMsg] = useState("");
+
+  const editMode = location.state?.editMode || false;
+  const recipeId = location.state?.recipeId;
 
   const [formData, setFormData] = useState({
     title: "",
@@ -126,29 +24,9 @@ const CreateRecipe = () => {
     image_url: "",
   });
 
-  const dietaryOptions = [
-    "Vegetarian",
-    "Vegan",
-    "Gluten-Free",
-    "Dairy-Free",
-    "Keto",
-    "Low-Carb",
-    "Nut-Free",
-  ];
-
-  const categoryOptions = [
-  "Indian",
-  "Chinese",
-  "Italian",
-  "Mexican",
-  "Thai",
-  "Middle Eastern",
-  "American",
-];
-
-
+  const dietaryOptions = ["Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free", "Keto", "Low-Carb", "Nut-Free"];
+  const categoryOptions = ["Indian", "Chinese", "Italian", "Mexican", "Thai", "Middle Eastern", "American"];
   const difficultyOptions = ["Easy", "Medium", "Hard", "Beginner", "Intermediate", "Expert", "Challenging"];
-
   const cookTimeOptions = [
     "Under 15 minutes",
     "15–30 minutes",
@@ -158,6 +36,34 @@ const CreateRecipe = () => {
     "2–3 hours",
     "Over 3 hours",
   ];
+
+  useEffect(() => {
+    if (editMode && location.state?.recipeData) {
+      const data = location.state.recipeData;
+      setPreviewURL(data?.image_url || "");
+      setFormData({
+        title: data.title || "",
+        ingredients: data.ingredients?.join(", ") || "",
+        instructions: data.instructions || "",
+        cook_time: data.cook_time || "",
+        servings: data.servings || "",
+        category: data.category || "",
+        dietary_tags: data.dietary_tags || [],
+        difficulty: data.difficulty || "",
+        image_url: data.image_url || "",
+      });
+    }
+  }, [editMode, location.state]);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith("image/")) {
+      setRecipePicFile(file);
+      setPreviewURL(URL.createObjectURL(file));
+    } else {
+      setMsg("Only image files are allowed.");
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type, selectedOptions } = e.target;
@@ -171,30 +77,50 @@ const CreateRecipe = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMsg("");
 
-    const payload = {
-      ...formData,
-      ingredients: formData.ingredients
-        .split(",")
+    const payload = new FormData();
+    payload.append("title", formData.title);
+    payload.append("instructions", formData.instructions);
+    payload.append("cook_time", parseInt(formData.cook_time) || 0);
+    payload.append("servings", parseInt(formData.servings) || 1);
+    payload.append("category", formData.category);
+    payload.append("difficulty", formData.difficulty);
+    payload.append("dietary_tags", JSON.stringify(formData.dietary_tags));
+    payload.append("ingredients", JSON.stringify(
+      formData.ingredients
+        ?.split(",")
         .map((i) => i.trim())
-        .filter(Boolean),
-      cook_time: parseInt(formData.cook_time) || 0,
-      servings: parseInt(formData.servings),
-    };
+        .filter(Boolean)
+    ));
+    if (recipePicFile) {
+      payload.append("image_url", recipePicFile);
+    }
 
     try {
-      await api.post("/recipe", payload);
-      alert("Recipe created!");
+      if (editMode && recipeId) {
+        await api.put(`/recipe/${recipeId}`, payload, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        alert("Recipe updated!");
+      } else {
+        await api.post("/recipe", payload, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        alert("Recipe created!");
+      }
       navigate("/");
     } catch (err) {
       console.error(err);
-      alert("Failed to create recipe.");
+      alert(editMode ? "Failed to update recipe." : "Failed to create recipe.");
     }
   };
 
   return (
-    <div className="max-w-2xl mt-[80px] mx-auto p-6 bg-white shadow-md rounded ">
-      <h2 className="text-2xl font-bold mb-4">Create a New Recipe</h2>
+    <div className="max-w-2xl mt-[80px] mx-auto p-6 bg-white shadow-md rounded">
+      <h2 className="text-2xl font-bold mb-4">
+        {editMode ? "Edit Recipe" : "Create a New Recipe"}
+      </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Title */}
@@ -323,16 +249,18 @@ const CreateRecipe = () => {
           </select>
         </div>
 
-        {/* Image URL */}
+        {/* Image Upload */}
         <div>
-          <label className="block mb-1 font-semibold">Image URL</label>
+          <label className="block mb-1 font-semibold">Upload recipe image</label>
           <input
-            name="image_url"
-            value={formData.image_url}
-            onChange={handleChange}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
             className="w-full p-2 border rounded"
-            required
+            required={!editMode}
           />
+          {previewURL && <img src={previewURL} alt="Preview" className="mt-2 max-h-40" />}
+          {msg && <p className="text-red-500 text-sm mt-1">{msg}</p>}
         </div>
 
         {/* Submit */}
@@ -340,7 +268,7 @@ const CreateRecipe = () => {
           type="submit"
           className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
-          Submit Recipe
+          {editMode ? "Update Recipe" : "Submit Recipe"}
         </button>
       </form>
     </div>
