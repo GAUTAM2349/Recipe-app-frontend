@@ -35,6 +35,19 @@ const Recipe = () => {
     fetchRecipe();
   }, []); // removed id from here
 
+  const deleteRecipe = async () => {
+
+    try{
+
+      const response = await api.delete(`/recipe/${recipe.id}`);
+      navigate('/');
+
+    }catch(error){
+      console.log(error);
+    }
+    
+  }
+
   if (loading || !recipe) {
     return (
       <div className="text-center py-20 text-lg text-gray-600">Loading...</div>
@@ -70,7 +83,7 @@ const Recipe = () => {
               </div>
               {/* ****************************************************** */}
               {currentUser?.id === recipe.user_id && (
-                <div className="text-right absolute top-7 right-0 mb-4 px-4">
+                <div className="text-right absolute top-7 flex gap-1.5 right-0 mb-4 px-4">
                   <button
                     className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
                     onClick={() =>
@@ -84,6 +97,9 @@ const Recipe = () => {
                     }
                   >
                    edit
+                  </button>
+                  <button onClick={deleteRecipe} className="bg-red-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                    delete
                   </button>
                 </div>
               )}

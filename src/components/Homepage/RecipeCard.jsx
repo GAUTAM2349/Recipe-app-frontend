@@ -1,10 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Favorite from "./Favorite";
-import {
-  FavoriteContext,
-  FavoriteProvider,
-} from "../../../utils/FavoriteProvider";
+
 import approvePost from "../../../utils/Admin/approvePost";
 import banPost from "../../../utils/Admin/banPost";
 import blockUser from "../../../utils/Admin/blockUser";
@@ -45,9 +42,9 @@ const RecipeCard = ({ recipe, fetchRecipeAgain }) => {
             </div>
             <div>
               {!isAdminPage && (
-                <FavoriteProvider>
+                // <FavoriteProvider>
                   <Favorite recipeId={recipe.id} />
-                </FavoriteProvider>
+                
               )}
               <span className="text-gray-600">2 hours ago</span>
             </div>

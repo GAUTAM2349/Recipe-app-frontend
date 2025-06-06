@@ -1,12 +1,16 @@
 import React, { lazy, Suspense, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
 
 import { AllDataContext, AllDataProvider } from "./utils/AllDataContext";
 
-
 import Login from "./src/components/Login";
-import Signup from './src/components/Signup';
+import Signup from "./src/components/Signup";
 import NavBar from "./src/components/Header/NavBar";
 import Recipe from "./src/components/Recipe/Recipe";
 import { AuthProvider } from "./utils/AuthProvider";
@@ -25,22 +29,24 @@ import LearningReact from "./src/components/Temp/useRef";
 import { FavoriteProvider } from "./utils/FavoriteProvider";
 import FavoritesPage from "./src/components/Profile/FavoritesPage";
 import AdminDashboard from "./src/components/Admin/AdminDashboard";
-
+import { AdminProvider } from "./utils/Admin/AdminProvider";
+import MyCollectionsPage from "./src/components/Collections/MyCollectionsPage";
+import ResetPassword from "./src/components/ResetPassword";
+import ForgotPassword from "./src/components/ForgotPassword";
 
 const AppLayout = () => {
-  
   return (
     <>
-    <div className="bg-yellow-300 min-h-screen flex flex-col" >
-    <AuthProvider>
-    <AllDataProvider>
-    <div className="relative ">
-          <NavBar/>
-          <Outlet />
+      <div className="bg-yellow-300 min-h-screen flex flex-col">
+        <AuthProvider>
+          <AllDataProvider>
+            <div className="relative ">
+              <NavBar />
+              <Outlet />
+            </div>
+          </AllDataProvider>
+        </AuthProvider>
       </div>
-    </AllDataProvider>
-    </AuthProvider>
-    </div>
     </>
   );
 };
@@ -55,47 +61,86 @@ const appRouter = createBrowserRouter([
         element: <Homepage />, // ← always shows sidebar
       },
       {
-        path : "/recipe/:id",
-        element: <Recipe/>
+        path: "/recipe/:id",
+        element: <Recipe />,
       },
       {
-        path : "/feed",
-        element : <Activity/>
+        path: "/feed",
+        element: <Activity />,
       },
       {
-        path : "/profile",
-        element : <PrivateRoute><ProfileData><Profile/></ProfileData></PrivateRoute>,
-        
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <ProfileData>
+              <Profile />
+            </ProfileData>
+          </PrivateRoute>
+        ),
       },
       {
-        path : "/edit-profile",
-        element : <PrivateRoute><ProfileData><EditProfile/></ProfileData></PrivateRoute>,
-        
+        path: "/edit-profile",
+        element: (
+          <PrivateRoute>
+            <ProfileData>
+              <EditProfile />
+            </ProfileData>
+          </PrivateRoute>
+        ),
       },
       {
-        path : "/followers",
-        element : <PrivateRoute><FollowersProvider><FollowersPage/></FollowersProvider></PrivateRoute>
-      },
-      
-      {
-        path : "/followings",
-        element : <PrivateRoute><FollowingProvider><FollowingPage/></FollowingProvider></PrivateRoute>
-      },
-      {
-        path : "/favorites",
-        element : <PrivateRoute><FavoriteProvider><FavoritesPage/></FavoriteProvider></PrivateRoute>
-      }
-      ,
-      {
-        path : "/create-recipe",
-        element : <CreateRecipe/>
+        path: "/followers",
+        element: (
+          <PrivateRoute>
+            <FollowersProvider>
+              <FollowersPage />
+            </FollowersProvider>
+          </PrivateRoute>
+        ),
       },
 
       {
-        path : "/admin",
-        element : <AdminDashboard/>
-      }
-      
+        path: "/followings",
+        element: (
+          <PrivateRoute>
+            <FollowingProvider>
+              <FollowingPage />
+            </FollowingProvider>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/favorites",
+        element: (
+          <PrivateRoute>
+            <FavoriteProvider>
+              <FavoritesPage />
+            </FavoriteProvider>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/create-recipe",
+        element: <CreateRecipe />,
+      },
+
+      {
+        path: "/admin",
+        element: (
+          <AdminProvider>
+            <AdminDashboard />
+          </AdminProvider>
+        ),
+      },
+
+      {
+        path: "/collections",
+        element: (
+          <PrivateRoute>
+            <MyCollectionsPage />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 
@@ -112,16 +157,22 @@ const appRouter = createBrowserRouter([
       </Suspense>
     ),
   },
+
   {
-  path: "*",
-  element: <Navigate to="/" replace />
-}
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+  },
+
+  {
+    path: "/reset-password/:resetToken", // Add :resetToken to the path
+    element: <ResetPassword />,
+  },
+
+  {
+    path: "*",
+    element: <Navigate to="/" replace />,
+  },
 ]);
 
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  
-    <RouterProvider router={appRouter} />
-  
-);   
+root.render(<RouterProvider router={appRouter} />);

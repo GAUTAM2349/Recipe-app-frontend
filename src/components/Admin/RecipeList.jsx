@@ -11,7 +11,7 @@ const RecipeList = () => {
 
     const fetchRecipes = async () => {
   try {
-    const res = await api.get("/recipe/unapproved");
+    const res = await api.get("/admin/unapproved-recipes");
     const newRecipes = res.data;
 
     if (recipes.length === 0) {

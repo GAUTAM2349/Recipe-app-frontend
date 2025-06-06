@@ -2,7 +2,7 @@ import api from "../../config/axiosConfig";
 
 const banPost = async (postId, adminDivRef) => {
   try {
-    const response = await api.put(`/recipe/ban/${postId}`, { id: postId });
+    const response = await api.put(`/admin/ban-recipe/${postId}`, { id: postId });
     adminDivRef.classList.add("hidden");
     
     return {

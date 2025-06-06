@@ -3,7 +3,7 @@ import api from "../../config/axiosConfig";
 const approvePost = async (postId, adminDivRef) => {
   
   try {
-    const response = await api.put(`/recipe/approve/${postId}`, { id: postId });
+    const response = await api.put(`/admin/approve-recipe/${postId}`, { id: postId });
     adminDivRef.classList.add("hidden");
 
     return {

@@ -11,17 +11,18 @@ const CreateRecipe = () => {
 
   const editMode = location.state?.editMode || false;
   const recipeId = location.state?.recipeId;
+  const recipeData = location.state?.recipeData;
 
   const [formData, setFormData] = useState({
-    title: "",
-    ingredients: "",
-    instructions: "",
-    cook_time: "",
-    servings: "",
-    category: "",
-    dietary_tags: [],
-    difficulty: "",
-    image_url: "",
+    title:  recipeData?.title  || "",
+    ingredients: recipeData?.ingredients  || "",
+    instructions: recipeData?.instructions  || "",
+    cook_time: recipeData?.cook_time  || "",
+    servings: recipeData?.servings  || "",
+    category: recipeData?.category  || "",
+    dietary_tags: recipeData?.dietary_tags || [],
+    difficulty: recipeData?.difficulty  || "",
+    image_url: recipeData?.image_url  || "",
   });
 
   const dietaryOptions = ["Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free", "Keto", "Low-Carb", "Nut-Free"];
@@ -188,6 +189,7 @@ const CreateRecipe = () => {
             value={formData.servings}
             onChange={handleChange}
             className="w-full p-2 border rounded"
+            min="1"
             required
           />
         </div>

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import api from "../../config/axiosConfig";
 
 
@@ -166,6 +166,16 @@ const Login = () => {
               <span className="mt-[5px] text-green-400">{message}</span>
             )}
           </form>
+          <div className="mt-[40px] mb-[3px]">
+            forgot password?{" "}
+            <span
+              onClick={()=>navigate("/forgot-password")}
+              className="text-blue-600 cursor-pointer"
+            >
+              Reset password{" "}
+            </span>{" "}
+            now
+          </div>
         </div>
       </div>
     </>

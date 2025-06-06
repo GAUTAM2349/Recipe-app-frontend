@@ -2,7 +2,7 @@ import api from "../../config/axiosConfig";
 
 const blockUser = async (userId, adminDivRef, fetchRecipeAgain) => {
   try {
-    const response = await api.put(`/user/block/${userId}`, { id: userId });
+    const response = await api.put(`/admin/block-user/${userId}`, { id: userId });
 
     adminDivRef.classList.add("hidden");
     await fetchRecipeAgain();

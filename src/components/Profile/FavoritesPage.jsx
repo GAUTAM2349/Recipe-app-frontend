@@ -16,7 +16,10 @@ const FavoritesPage = () => {
   }
 
   return (
+    <>
+    
     <div className="mt-[85px] px-4 py-6  min-h-screen">
+      <h1 className="text-4xl font-bold font-sans">Favorites</h1>
       <div className="flex flex-wrap justify-center gap-6">
         {favorites.map((recipe) => (
           <div
@@ -49,6 +52,7 @@ const FavoritesPage = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

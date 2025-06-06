@@ -7,7 +7,7 @@ const BlockedUserList = () => {
   useEffect(() => {
     const fetchBlockedUsers = async () => {
       try {
-        const response = await api.get("/user/blocked-users");
+        const response = await api.get("/admin/blocked-users");
         setUsers(response.data);
       } catch (err) {
         console.error("Failed to fetch blocked users:", err);
@@ -19,7 +19,7 @@ const BlockedUserList = () => {
 
   const unblockUser = async (userId) => {
     try {
-      await api.put(`/user/unblock/${userId}`);
+      await api.put(`/admin/unblock-user/${userId}`);
       setUsers((prev) => prev.filter((user) => user.id !== userId));
     } catch (err) {
       console.error("Failed to unblock user:", err);

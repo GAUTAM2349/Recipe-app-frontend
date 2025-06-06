@@ -5,6 +5,10 @@ import { useSearchParams } from "react-router-dom";
 import RecipeCard from './RecipeCard';
 import api from "../../../config/axiosConfig";
 import { AllDataContext } from "../../../utils/AllDataContext";
+import {
+  FavoriteContext,
+  FavoriteProvider,
+} from "../../../utils/FavoriteProvider";
 
 const categoryOptions = ["Indian", "Chinese", "Italian", "Mexican", "Thai", "Middle Eastern", "American"];
 const difficultyOptions = ["Easy", "Medium", "Hard", "Beginner", "Advanced", "Intermediate", "Expert"];
@@ -76,6 +80,7 @@ const Homepage = () => {
       </div>
 
       {/* Recipe Cards */}
+      <FavoriteProvider>
       <div className="flex flex-wrap gap-4 mx-auto">
         {recipes.length > 0 ? (
           recipes.map((recipe) => (
@@ -86,6 +91,7 @@ const Homepage = () => {
           <p className="text-gray-600">No recipes match the selected filters.</p>
         )}
       </div>
+      </FavoriteProvider>
 
       {/* Pagination Controls */}
       <div className="flex justify-center  gap-4 mt-6 cursor-pointer">

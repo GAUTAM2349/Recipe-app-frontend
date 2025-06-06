@@ -1,10 +1,12 @@
 import { useContext, useRef, useEffect } from "react";
 import { MyRecipesContext } from "../../../utils/MyRecipesProvider";
+import {  useNavigate } from 'react-router-dom';
 
 const MyRecipeList = () => {
   const { myRecipes, fetchMyRecipes, loading, page, totalPages } =
     useContext(MyRecipesContext);
   const loaderRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,9 +32,9 @@ const MyRecipeList = () => {
   return (
     <div className="flex flex-wrap mx-auto">
       {myRecipes.map((recipe, idx) => (
-        <div key={idx} className="recipe-card">
+        <div  onClick={()=>navigate(`/recipe/${recipe.id}`)} key={idx} className="recipe-card cursor-pointer">
           {/* <h3>{recipe.title}</h3> */}
-          <div className=" bg-gray-50 w-[200px] rounded-2xl h-[200px] m-1.5 overflow-hidden">
+          <div className=" bg-gray-50 w-[200px] cursor-pointer rounded-2xl h-[200px] m-1.5 overflow-hidden">
             <img
               src={recipe.image_url || "https://via.placeholder.com/100"}
               alt={recipe.title || "Recipe image"}

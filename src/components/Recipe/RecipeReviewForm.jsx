@@ -58,6 +58,7 @@ const RecipeReviewForm = ({toggleCreateAndEditReview, onSubmit, initialRating = 
           rows="4"
           placeholder="Write your feedback here..."
           value={comment}
+          required
           onChange={(e) => setComment(e.target.value)}
         />
 

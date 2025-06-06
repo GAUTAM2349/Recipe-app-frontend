@@ -29,7 +29,7 @@ export const FollowersProvider = ({ children }) => {
   }, []);
 
   return (
-    <FollowersContext.Provider value={{ followers, loading, error }}>
+    <FollowersContext.Provider value={{ followers, loading, error, setFollowers }}>
       {children}
     </FollowersContext.Provider>
   );
