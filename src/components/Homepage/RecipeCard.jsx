@@ -15,7 +15,7 @@ const RecipeCard = ({ recipe, fetchRecipeAgain }) => {
 
   return (
     <div ref={adminDivRef}
-      className="flex relative flex-col shadow-2xl ml-5 cursor-pointer justify-center items-center bg-yellow-100  w-[80vw]  md:max-w-[45vw] lg:max-w-[33vw] xl:max-w-[22vw] sm:max-w-[45vw] rounded-lg"
+      className="flex relative flex-col shadow-2xl  cursor-pointer justify-center items-center bg-yellow-100  w-[30%] md:w-[23%] rounded-lg"
     >
       <div onClick={() => navigate(`/recipe/${recipe.id}`)}
        className="bg-white rounded-lg shadow-lg overflow-hidden w-[100%] h-[98%]">
@@ -32,7 +32,7 @@ const RecipeCard = ({ recipe, fetchRecipeAgain }) => {
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <img
-                src="https://randomuser.me/api/portraits/men/32.jpg"
+                src={recipe.user.profile_picture}
                 alt="Avatar"
                 className="w-8 h-8 rounded-full mr-2 object-cover"
               />

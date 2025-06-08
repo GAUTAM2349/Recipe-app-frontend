@@ -18,7 +18,7 @@ const RecipeReviewsList = ({ reviews, setToggleCreateAndEditReview, setUserRevie
             <div key={review?.id} className="p-4 bg-white shadow rounded-lg">
               <div className="flex items-center mb-2">
                 <img
-                  src={review?.User?.profile_picture || "/default-avatar.png"}
+                  src={review?.user?.profile_picture }
                   alt="profile"
                   className="w-10 h-10 rounded-full object-cover mr-3"
                 />
