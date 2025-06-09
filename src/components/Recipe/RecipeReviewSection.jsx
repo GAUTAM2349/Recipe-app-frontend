@@ -6,7 +6,7 @@ import api from "../../../config/axiosConfig";
 import { AuthContext } from "../../../utils/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
-const RecipeReviewSection = ({ recipeId }) => {
+const RecipeReviewSection = ({ recipe,recipeId }) => {
   const [reviews, setReviews] = useState([]);
   const [userReview, setUserReview] = useState(null);
   const [error, setError] = useState("");
@@ -63,10 +63,11 @@ const RecipeReviewSection = ({ recipeId }) => {
   };
 
   return (
-    <div className="my-10 bg-white">
+    <div className="my-10 bg-white h-[100%]">
       {error && <div className="text-red-500 mb-2">{error}</div>}
 
-      <RecipeReviewForm
+      { user?.id != recipe.user_id &&
+        <RecipeReviewForm
         onSubmit={handleReviewSubmit}
         initialRating={userReview?.rating}
         initialComment={userReview?.comment}
@@ -74,6 +75,7 @@ const RecipeReviewSection = ({ recipeId }) => {
         toggleCreateAndEditReview={toggleCreateAndEditReview}
       />
 
+      }
       <RecipeReviewsList
         reviews={reviews}
         setToggleCreateAndEditReview={setToggleCreateAndEditReview}

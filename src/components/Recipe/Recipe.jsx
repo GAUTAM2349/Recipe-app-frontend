@@ -8,12 +8,15 @@ import RecipeReviewForm from "./RecipeReviewForm";
 import RecipeReviewSection from "./RecipeReviewSection";
 import AddToCollections from "../Collections/AddToCollections";
 import { AuthContext } from "../../../utils/AuthProvider";
+import Favorite from "../Homepage/Favorite";
+import banPost from "../../../utils/Admin/banPost";
 
 const Recipe = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectCollectionsModal, setSelectCollectionsModal] = useState(false);
+  const {user} = useContext(AuthContext);
   // ********
   const navigate = useNavigate();
   const { user: currentUser } = useContext(AuthContext);
@@ -22,6 +25,7 @@ const Recipe = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
+        
         const response = await api.get(`/recipe/${id}`);
         const data = await response?.data;
         setRecipe(data);
@@ -80,6 +84,7 @@ const Recipe = () => {
                   setSelectCollectionsModal={setSelectCollectionsModal}
                   recipeId={id}
                 />
+              
               </div>
               {/* ****************************************************** */}
               {currentUser?.id === recipe.user_id && (
@@ -111,6 +116,8 @@ const Recipe = () => {
               <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
                 {recipe.title} { recipe.approval != "approved" && <span className="bg-amber-500 text-sm text-black rounded-2xl p-2">approval {recipe.approval}</span>}
               </h2>
+              {/* {user?.role == 'admin' && recipe.approval != 'approved' && <div className="bg-blue p-4">approve</div>}*/}
+                
               <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
                 category: {recipe.category}
               </p>
@@ -175,6 +182,7 @@ const Recipe = () => {
             </div>
           </div>
         </div>
+        {/* {user?.role == 'admin' && recipe.approval == 'approved' && <div onClick={()=>{banPost(recipe.id); navigate('/')}} className="bg-blue p-4">disapprove</div>}  */}
       </div>
       {/* COLLECTIONS--- */}
       {selectCollectionsModal && (
@@ -183,7 +191,7 @@ const Recipe = () => {
           setSelectCollectionsModal={setSelectCollectionsModal}
         />
       )}
-      <RecipeReviewSection recipeId={id} />
+      <RecipeReviewSection  recipe={recipe} recipeId={id} />
     </>
   );
 };

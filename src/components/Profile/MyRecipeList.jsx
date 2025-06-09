@@ -1,12 +1,14 @@
 import { useContext, useRef, useEffect } from "react";
 import { MyRecipesContext } from "../../../utils/MyRecipesProvider";
 import {  useNavigate } from 'react-router-dom';
+import { AuthContext } from "../../../utils/AuthProvider";
 
 const MyRecipeList = () => {
   const { myRecipes, fetchMyRecipes, loading, page, totalPages } =
     useContext(MyRecipesContext);
   const loaderRef = useRef(null);
   const navigate = useNavigate();
+  const {user} = useContext(AuthContext);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

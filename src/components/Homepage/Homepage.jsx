@@ -29,7 +29,7 @@ const Homepage = () => {
   const fetchRecipes = async () => {
     try {
       const res = await api.get("/recipe", {
-        params: { page, category, difficulty, dietary, search : recipeFilter || "" }
+        params: { page, category, difficulty, dietary, search : searchParams.get('search')||recipeFilter  }
       });
       setRecipes(res.data.recipes);
       setTotalPages(res.data.totalPages || 1);
