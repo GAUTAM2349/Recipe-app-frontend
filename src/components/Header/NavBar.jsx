@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import SearchBar from "./SearchBar";
 import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../utils/AuthProvider";
 
 const NavBar = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+  const {user} = useContext(AuthContext);
 
   return (
     <header>
       <nav className="bg-gray-700 fixed top-0 z-50 w-full ">
-        <div className="container mx-auto h-[80px] flex gap-8 justify-start items-center ">
+        <div className=" container px-5 h-[80px] flex gap-8 justify-between items-center ">
+          <div className="flex">
+
           <h1
             onClick={() => navigate("/")}
-            className="text-2xl font-bold text-gray-50 cursor-pointer"
+            className="bg-green-500 text-2xl px-10  mr-10 font-bold text-gray-50 cursor-pointer"
           >
             kook
           </h1>
@@ -69,8 +73,30 @@ const NavBar = () => {
               </span>
             </div>
 
+            {user?.role == "admin" && <div onClick={() => navigate("/admin")} className="flex items-center space-x-2 cursor-pointer">
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-8 w-8 text-yellow-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                  />
+                </svg>
+              </span>
+              <span  className="text-gray-50">
+                Dashboard
+              </span>
+            </div>
+}
           </div>
-
+</div>
           {/* Search Box (Visible on lg and above) */}
           { isHomePage && <SearchBar /> }
           <div

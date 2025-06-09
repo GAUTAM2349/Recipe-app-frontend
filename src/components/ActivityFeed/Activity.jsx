@@ -28,10 +28,12 @@ const Activity = () => {
       <div className="space-y-4">
         {feeds?.map((feed, idx) => {
           const userName = feed.user?.name || "Someone";
-          const message =
+          let message =
             feed.activity_type === "new_recipe"
               ? `${userName} posted a new recipe`
               : `${userName} has a new activity`;
+
+              if(feed.activity_type=== "review_recipe") message =  `${userName} reviewed a recipe`;
 
           const profilePic = feed.user?.profile_picture || "https://via.placeholder.com/40";
 

@@ -187,7 +187,7 @@ const Profile = () => {
                   <img
                     alt="Profile picture"
                     src={user.profile_picture}
-                    className="shadow-xl rounded-full h-40 w-40 object-cover border-4 border-white -mt-16"
+                    className="shadow-xl rounded-full h-40 w-40 object-cover border-4 border-white -mt-13"
                   />
                 </div>
               </div>
@@ -238,9 +238,12 @@ const Profile = () => {
               <h3 className="text-xl font-semibold leading-normal text-blueGray-700">
                 {user?.name || "loading.."}
               </h3>
-              <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+              <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold lowercase">
                 <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                {user?.email || "loading..."}
+                {user?.email|| "loading..."}
+                {
+                  console.log(user?.email)
+                }
               </div>
             </div>
 
@@ -250,9 +253,7 @@ const Profile = () => {
                   <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
                     {user.bio}
                   </p>
-                  <a href="#!" className="font-normal text-pink-500">
-                    Show more
-                  </a>
+                  
                 </div>
               </div>
             </div>

@@ -6,6 +6,7 @@ const MyCollectionsPage = () => {
   const [expandedCollectionId, setExpandedCollectionId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [updateCollections, setUpdateCollections] = useState(1);
 
   useEffect(() => {
     async function fetchCollections() {
@@ -22,15 +23,41 @@ const MyCollectionsPage = () => {
     }
 
     fetchCollections();
-  }, []);
+  }, [updateCollections]);
 
   useEffect( () => {
     console.log("\n\n collections ",collections);
-  },[collections])
+  },[collections,updateCollections])
 
   const toggleExpand = (id) => {
     setExpandedCollectionId((prev) => (prev === id ? null : id));
   };
+
+  const deleteCollection = async (id) => {
+
+    try{
+
+      const response = await api.delete(`/collection/${id}`);
+      setUpdateCollections(updateCollections+1);
+    }catch(error){
+      console.log("error in deleting collection");
+    }
+  }
+
+
+  const deleteRecipeFromCollection = async(collectionId, recipeId) => {
+
+    try{
+
+      const response = await api.delete(`/collection/delete-collection-recipe/${collectionId}/${recipeId}`);
+      setUpdateCollections(updateCollections+1);
+        
+    }catch(error){
+      console.log(error);
+    }
+    
+  }
+  
 
   if (loading) return <p className="p-4">Loading collections...</p>;
   if (error) return <p className="p-4 text-red-600">{error}</p>;
@@ -42,8 +69,9 @@ const MyCollectionsPage = () => {
       {collections.map((collection) => (
         <div
           key={collection?.id}
-          className="border rounded-lg p-4 bg-white shadow"
+          className="border rounded-lg p-4 relative bg-white shadow"
         >
+          <span onClick={()=>{deleteCollection(collection.id)}} className="bg-red-500 absolute top-4 px-3 py-1 rounded-2xl right-9">Delete</span>
           <div
             className="flex justify-between items-center cursor-pointer"
             onClick={() => toggleExpand(collection.id)}
@@ -60,8 +88,9 @@ const MyCollectionsPage = () => {
                 collection?.recipes.map((recipe) => (
                   <div
                     key={recipe.id}
-                    className="border rounded-lg p-2 bg-gray-100"
+                    className="border rounded-lg p-2 relative bg-gray-100"
                   >
+                    <span onClick={()=>deleteRecipeFromCollection(collection.id,recipe.id)} className=" bg-green-600 absolute top-2 right-2 rounded-b-2xl pb-3 px-1">remove</span>
                     <img
                       src={recipe.image_url}
                       alt={recipe.title}
@@ -75,6 +104,7 @@ const MyCollectionsPage = () => {
           )}
         </div>
       ))}
+      <span className="hidden">{updateCollections}</span>
     </div>
   );
 };

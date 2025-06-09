@@ -5,6 +5,7 @@ import Favorite from "./Favorite";
 import approvePost from "../../../utils/Admin/approvePost";
 import banPost from "../../../utils/Admin/banPost";
 import blockUser from "../../../utils/Admin/blockUser";
+import api from "../../../config/axiosConfig";
 
 const RecipeCard = ({ recipe, fetchRecipeAgain }) => {
   const { title, cook_time: cookTime, difficulty, ingredients } = recipe;
@@ -13,9 +14,24 @@ const RecipeCard = ({ recipe, fetchRecipeAgain }) => {
   const isAdminPage = location.pathname === "/admin";
   const adminDivRef = useRef();
 
+  const fetchUploaderProfile = async (userId) => {
+
+    try{
+
+      navigate(`/public-profile/${recipe.user_id}`);
+      
+      
+    }catch(error){
+      console.log(error);
+    }
+    
+  }
+  
+
   return (
     <div ref={adminDivRef}
-      className="flex relative flex-col shadow-2xl  cursor-pointer justify-center items-center bg-yellow-100  w-[30%] md:w-[23%] rounded-lg"
+      className="flex relative flex-col shadow-2xl ml-5 cursor-pointer justify-center items-center bg-yellow-100  w-[80vw] 
+       md:max-w-[45vw] lg:max-w-[33vw] xl:max-w-[22vw] sm:max-w-[45vw] rounded-lg"
     >
       <div onClick={() => navigate(`/recipe/${recipe.id}`)}
        className="bg-white rounded-lg shadow-lg overflow-hidden w-[100%] h-[98%]">
@@ -31,7 +47,7 @@ const RecipeCard = ({ recipe, fetchRecipeAgain }) => {
           </p>
           <div className="flex justify-between items-center">
             <div className="flex items-center">
-              <img
+              <img onClick={(e)=>{ e.stopPropagation(); fetchUploaderProfile(recipe.user_id)}}
                 src={recipe.user.profile_picture}
                 alt="Avatar"
                 className="w-8 h-8 rounded-full mr-2 object-cover"

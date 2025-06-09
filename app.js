@@ -33,6 +33,7 @@ import { AdminProvider } from "./utils/Admin/AdminProvider";
 import MyCollectionsPage from "./src/components/Collections/MyCollectionsPage";
 import ResetPassword from "./src/components/ResetPassword";
 import ForgotPassword from "./src/components/ForgotPassword";
+import PublicProfile from "./src/components/Profile/PublicProfile";
 
 const AppLayout = () => {
   return (
@@ -156,6 +157,10 @@ const appRouter = createBrowserRouter([
         <Login />
       </Suspense>
     ),
+  },
+  {
+    path : '/public-profile/:id',
+    element: <PublicProfile/>
   },
 
   {

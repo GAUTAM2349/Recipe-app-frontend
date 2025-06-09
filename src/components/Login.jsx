@@ -93,28 +93,11 @@ const Login = () => {
               Welcome Back!
             </h2>
 
-
-            <h1 className="bold text-red" id="my-number">{x}</h1>
-                    <button className="w-[100px] h-[100px] bg-blue-700" onClick={increment}>INCREMENT</button>
-
-
-
             <p className="mt-2 text-sm text-gray-600">
               Please sign in to your account
             </p>
           </div>
 
-          <div className="flex justify-center items-center space-x-3">
-            <span className="w-11 h-11 flex items-center justify-center rounded-full bg-blue-900 text-white text-lg font-bold cursor-pointer hover:shadow-lg transition ease-in duration-300">
-              
-            </span>
-            <span className="w-11 h-11 flex items-center justify-center rounded-full bg-blue-400 text-white text-lg font-bold cursor-pointer hover:shadow-lg transition ease-in duration-300">
-              
-            </span>
-            <span className="w-11 h-11 flex items-center justify-center rounded-full bg-blue-500 text-white text-lg font-bold cursor-pointer hover:shadow-lg transition ease-in duration-300">
-              {/*  */}
-            </span>
-          </div>
 
 
           <form onSubmit={handleFormSubmit} className="mt-8 space-y-6">
