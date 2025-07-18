@@ -53,7 +53,7 @@ const AppLayout = () => {
 };
 
 const appRouter = createBrowserRouter([
-  {
+{
     path: "/",
     element: <AppLayout />, // includes NavBar, Auth
     children: [

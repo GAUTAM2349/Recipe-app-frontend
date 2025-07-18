@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await api.get("/user/login-status");
+        const response = await api.get("/user/login-status");  // authProvider, PrivateRoute, Profile
         console.log("\n\n auth response  is ", response)
         setIsAuthenticated(true);
         const user = response.data.user;
