@@ -44,6 +44,7 @@ const AppLayout = () => {
             <div className="relative ">
               <NavBar />
               <Outlet />
+              <div></div> <div></div>
             </div>
           </AllDataProvider>
         </AuthProvider>
