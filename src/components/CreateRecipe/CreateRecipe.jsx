@@ -118,7 +118,7 @@ const CreateRecipe = () => {
   };
 
   return (
-    <div className="max-w-2xl mt-[80px] mx-auto p-6 bg-white shadow-md rounded">
+    <div className="max-w-2xl  mx-auto p-6 bg-white shadow-md rounded">
       <h2 className="text-2xl font-bold mb-4">
         {editMode ? "Edit Recipe" : "Create a New Recipe"}
       </h2>
@@ -229,7 +229,7 @@ const CreateRecipe = () => {
               </option>
             ))}
           </select>
-          <small className="text-gray-500">Hold Ctrl (Windows) or ⌘ (Mac) to select multiple</small>
+         
         </div>
 
         {/* Difficulty */}

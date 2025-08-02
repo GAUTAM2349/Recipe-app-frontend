@@ -31,3 +31,4 @@ A preflight request checks:
 * image for recipe is not uploading properly
 
 * pagination in activity feed, admin dashboard
+* app is made in 75% 

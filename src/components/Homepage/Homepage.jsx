@@ -1,6 +1,5 @@
 
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import RecipeCard from './RecipeCard';
 import api from "../../../config/axiosConfig";
@@ -60,28 +59,29 @@ const Homepage = () => {
   };
 
   return (
-    <div className="py-6 mx-auto px-2 mt-[80px]">
+    <div className="mt-2 mx-auto px-2 text-[3vw] sm:text-[14px]">
       {/* Filters */}
-      <div className="flex  flex-wrap gap-4 mb-6">
-        <select value={category} onChange={e => updateParam("category", e.target.value)} className="border p-2 rounded bg-yellow-200">
-          <option value="">All Categories</option>
+
+      <div className="flex gap-2 sm:gap-4 mb-3">
+        <select value={category} onChange={e => updateParam("category", e.target.value)} className="border p-1  rounded bg-yellow-200">
+          <option value="">Category</option>
           {categoryOptions.map(cat => <option key={cat} value={cat}>{cat}</option>)}
         </select>
 
-        <select value={difficulty} onChange={e => updateParam("difficulty", e.target.value)} className="border p-2 rounded bg-yellow-200">
-          <option value="">All Difficulty Levels</option>
+        <select value={difficulty} onChange={e => updateParam("difficulty", e.target.value)} className="border p-1  rounded bg-yellow-200">
+          <option value="">Difficulty </option>
           {difficultyOptions.map(diff => <option key={diff} value={diff}>{diff}</option>)}
         </select>
 
-        <select value={dietary} onChange={e => updateParam("dietary", e.target.value)} className="border p-2 rounded bg-yellow-200">
-          <option value="">All Dietary Tags</option>
+        <select value={dietary} onChange={e => updateParam("dietary", e.target.value)} className="border  p-1  rounded bg-yellow-200">
+          <option value=""> Tags</option>
           {dietaryOptions.map(tag => <option key={tag} value={tag}>{tag}</option>)}
         </select>
       </div>
 
       {/* Recipe Cards */}
       <FavoriteProvider>
-      <div className="flex flex-wrap gap-4 mx-auto">
+      <div className="flex flex-wrap gap-4 mx-auto justify-center">
         {recipes.length > 0 ? (
           recipes.map((recipe) => (
             
