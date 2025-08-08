@@ -64,7 +64,7 @@ const MyCollectionsPage = () => {
   if (collections?.length === 0) return <p className="p-4">No collections found.</p>;
 
   return (
-    <div className="p-4 space-y-4 mt-[90px]">
+    <div className="p-4 space-y-4">
       <h1 className="text-2xl font-bold mb-4">My Collections</h1>
       {collections.map((collection) => (
         <div

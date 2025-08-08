@@ -23,7 +23,7 @@ const Activity = () => {
   }, []);
 
   return (
-    <div className="p-6 mt-[80px] sm:w-[80%] md:w-[70%] xl:w-[65%] mr-auto ml-auto">
+    <div className="p-6  sm:w-[80%] md:w-[70%] xl:w-[65%] mr-auto ml-auto">
       <h2 className="text-2xl font-bold mb-4">Activity Feed</h2>
       <div className="space-y-4">
         {feeds?.map((feed, idx) => {

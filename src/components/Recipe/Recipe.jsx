@@ -60,7 +60,7 @@ const Recipe = () => {
 
   return (
     <>
-      <div className="bg-gray-100 mt-[80px] relative dark:bg-gray-800 py-8">
+      <div className="bg-gray-100  relative dark:bg-gray-800 py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row -mx-4">
             {/* Recipe Image & Buttons */}
@@ -69,7 +69,7 @@ const Recipe = () => {
                 <img
                   className="w-full h-full object-cover"
                   src={
-                    recipe?.image_url || "https://via.placeholder.com/600x400"
+                    recipe?.image_url || "https://www.pexels.com/photo/person-cooking-on-black-pan-4144234/"
                   }
                   alt={recipe?.title}
                 />
@@ -90,7 +90,7 @@ const Recipe = () => {
               {currentUser?.id === recipe.user_id && (
                 <div className="text-right absolute top-7 flex gap-1.5 right-0 mb-4 px-4">
                   <button
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2  rounded-bl-2xl"
                     onClick={() =>
                       navigate("/create-recipe", {
                         state: {
@@ -103,7 +103,7 @@ const Recipe = () => {
                   >
                    edit
                   </button>
-                  <button onClick={deleteRecipe} className="bg-red-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                  <button onClick={deleteRecipe} className="bg-red-600 hover:bg-blue-700 text-white px-4 py-2 rounded-bl-2xl">
                     delete
                   </button>
                 </div>

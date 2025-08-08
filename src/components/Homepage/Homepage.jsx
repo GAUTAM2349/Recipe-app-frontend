@@ -15,7 +15,7 @@ const dietaryOptions = ["Vegan", "Vegetarian", "Gluten-Free", "Dairy-Free", "Nut
 
 const Homepage = () => {
   
-  const [recipes, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState([{id:1},{id:2},{id:3},{id:4},{id:5},{id:6}]);
   const [totalPages, setTotalPages] = useState(1);
   const {recipeFilter} = useContext(AllDataContext);
 
@@ -85,7 +85,7 @@ const Homepage = () => {
         {recipes.length > 0 ? (
           recipes.map((recipe) => (
             
-            <RecipeCard key={recipe.id} recipe={recipe} />
+            <RecipeCard key={recipe?.id} recipe={recipe} />
           ))
         ) : (
           <p className="text-gray-600">No recipes match the selected filters.</p>
@@ -94,7 +94,7 @@ const Homepage = () => {
       </FavoriteProvider>
 
       {/* Pagination Controls */}
-      <div className="flex justify-center  gap-4 mt-6 cursor-pointer">
+      <div className="flex justify-center  gap-4 mt-6 cursor-pointer absolute bottom-10 right-1.5">
         <button onClick={() => handlePageChange(-1)} disabled={page <= 1} className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50">Previous</button>
         <span className="px-4 py-2">Page {page} of {totalPages}</span>
         <button onClick={() => handlePageChange(1)} disabled={page >= totalPages} className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50">Next</button>

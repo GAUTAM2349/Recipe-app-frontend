@@ -50,14 +50,14 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <h1>Dashboard</h1>
-      <div className="p-6 mt-[90px]">
+      {/* <h1>Dashboard</h1> */}
+      <div className="p-6 pt-1 ">
 
         {/* Tab Buttons */}
-        <div className="flex gap-4 pb-1">
+        <div className="flex gap-4 pt-1 pb-1">
           <button
             onClick={() => setActiveTab("recipes")}
-            className={`px-4 py-2 rounded cursor-pointer ${activeTab === "recipes" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-800"}`}
+            className={` px-2 md:px-4 py-1 md:py-2 rounded cursor-pointer ${activeTab === "recipes" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-800"}`}
           >
             New Recipes
           </button>

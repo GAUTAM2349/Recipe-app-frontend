@@ -34,12 +34,12 @@ const RecipeCard = ({ recipe, fetchRecipeAgain }) => {
       className="bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 overflow-hidden cursor-pointer flex flex-col h-full"
     >
       {/* Image Section */}
-      <div onClick={() => navigate(`/recipe/${recipe.id}`)}>
+      <div onClick={() => navigate(`/recipe/${recipe?.id}`)}>
         <div className="h-[180px] w-[178px] sm:h-[160px]  xl:w-[250px] bg-gray-100 flex items-center justify-center overflow-hidden">
           <img
             src={
               recipe.image_url ||
-              "https://via.placeholder.com/400x300?text=No+Image"
+              "https://www.pexels.com/photo/person-cooking-on-black-pan-4144234/"
             }
             alt="Recipe"
             className="  w-[178px] xl:w-[250px] object-contain"
@@ -62,21 +62,21 @@ const RecipeCard = ({ recipe, fetchRecipeAgain }) => {
               <img
                 onClick={(e) => {
                   e.stopPropagation();
-                  fetchUploaderProfile(recipe.user_id);
+                  fetchUploaderProfile(recipe?.user_id);
                 }}
-                src={recipe.user.profile_picture}
+                src={recipe?.user?.profile_picture}
                 alt="Uploader"
                 className="w-6 h-6 rounded-full object-cover mr-2"
               />
               <span className="text-sm font-medium text-gray-700">
-                {recipe.user.name}
+                {recipe?.user?.name}
               </span>
             </div>
 
             {/* Like/Favorite */}
             {!isAdminPage && (
               <div onClick={(e) => e.stopPropagation()}>
-                <Favorite recipeId={recipe.id} />
+                <Favorite recipeId={recipe?.id} />
               </div>
             )}
           </div>
@@ -88,14 +88,14 @@ const RecipeCard = ({ recipe, fetchRecipeAgain }) => {
         <div className="flex justify-between px-3 py-2 bg-gray-100 items-center">
           <div className="flex gap-2">
             <button
-              onClick={() => approvePost(recipe.id, adminDivRef.current)}
+              onClick={() => approvePost(recipe?.id, adminDivRef?.current)}
               className="text-green-600 text-xl"
               title="Approve"
             >
               ✅
             </button>
             <button
-              onClick={() => banPost(recipe.id, adminDivRef.current)}
+              onClick={() => banPost(recipe?.id, adminDivRef?.current)}
               className="text-yellow-600 text-xl"
               title="Ban"
             >
@@ -104,7 +104,7 @@ const RecipeCard = ({ recipe, fetchRecipeAgain }) => {
           </div>
           <button
             onClick={() =>
-              blockUser(recipe.user_id, adminDivRef.current, fetchRecipeAgain)
+              blockUser(recipe?.user_id, adminDivRef?.current, fetchRecipeAgain)
             }
             className="bg-red-600 text-white px-3 py-1 text-sm rounded-md"
           >
